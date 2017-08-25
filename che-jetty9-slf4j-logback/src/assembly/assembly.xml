@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012-2017 Red Hat, Inc.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Red Hat, Inc. - initial API and implementation
+
+-->
+<assembly xmlns="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0 https://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>tomcat-zip</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <dependencySets>
+        <dependencySet>
+            <unpack>false</unpack>
+            <scope>runtime</scope>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>ch.qos.logback:logback-access</include>
+                <include>ch.qos.logback:logback-core</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/dependency/jetty-distribution-${org.eclipse.jetty.version}</directory>
+            <outputDirectory></outputDirectory>
+            <excludes>
+                <exclude>**/start.ini</exclude>
+                <exclude>**/bin/*.sh</exclude>
+                <exclude>**/webapps/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/dependency/jetty-distribution-${org.eclipse.jetty.version}</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>**/bin/*.sh</include>
+            </includes>
+            <fileMode>755</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/bin</directory>
+            <outputDirectory>bin/</outputDirectory>
+            <includes>
+                <include>jetty-launcher.sh</include>
+            </includes>
+            <fileMode>755</fileMode>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/src/assembly</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>LICENSE-*.txt</include>
+                <include>start.ini</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/conf</directory>
+            <outputDirectory>conf</outputDirectory>
+            <includes>
+                <include>*.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

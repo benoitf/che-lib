@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012-2017 Red Hat, Inc.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Red Hat, Inc. - initial API and implementation
+
+-->
+<assembly xmlns="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.0.0 https://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>tomcat-zip</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <dependencySets>
+        <dependencySet>
+            <unpack>false</unpack>
+            <scope>runtime</scope>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>ch.qos.logback:logback-access</include>
+                <include>ch.qos.logback:logback-core</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+        <unpack>false</unpack>
+        <scope>runtime</scope>
+        <outputDirectory>/</outputDirectory>
+        <includes>
+            <include>org.eclipse.tycho:org.eclipse.osgi</include>
+        </includes>
+    </dependencySet>
+        <dependencySet>
+            <unpack>false</unpack>
+            <scope>runtime</scope>
+            <outputDirectory>bundles/</outputDirectory>
+            <includes>
+                <include>org.apache.felix:org.apache.felix.gogo.shell</include>
+                <include>org.apache.felix:org.apache.felix.gogo.runtime</include>
+                <include>org.apache.felix:org.apache.felix.gogo.command</include>
+                <include>javax.servlet:javax.servlet-api</include>
+                <include>javax.annotation:javax.annotation-api</include>
+                <include>org.ow2.asm:asm</include>
+                <include>org.ow2.asm:asm-commons</include>
+                <include>org.ow2.asm:asm-tree</include>
+                <include>com.florentbenoit:jetty-annotations</include>
+                <include>org.eclipse.jetty:jetty-rewrite</include>
+                <include>org.eclipse.jetty:jetty-util</include>
+                <include>org.eclipse.jetty:jetty-http</include>
+                <include>org.eclipse.jetty:jetty-io</include>
+                <include>org.eclipse.jetty:jetty-security</include>
+                <include>org.eclipse.jetty:jetty-server</include>
+                <include>javax.websocket:javax.websocket-api</include>
+                <include>javax.ws.rs:javax.ws.rs-api</include>
+
+
+                <include>com.sun.mail:javax.mail</include>
+                <include>org.apache.geronimo.specs:geronimo-jta_1.1_spec</include>
+                <include>org.apache.aries:org.apache.aries.util</include>
+                <include>org.apache.aries.spifly:org.apache.aries.spifly.dynamic.bundle</include>
+                <include>org.eclipse.jetty:jetty-jndi</include>
+                <include>org.eclipse.jetty:jetty-plus</include>
+                <include>org.eclipse.jetty:jetty-servlet</include>
+                <include>org.eclipse.jetty:jetty-webapp</include>
+                <include>org.eclipse.jetty:jetty-deploy</include>
+                <include>org.eclipse.jetty:jetty-xml</include>
+                <include>org.apache.felix:org.apache.felix.eventadmin</include>
+                <include>org.apache.felix:org.apache.felix.configadmin</include>
+                <include>org.osgi:org.osgi.compendium</include>
+                <include>org.eclipse.equinox.http:servlet</include>
+                <include>org.eclipse.jetty.osgi:jetty-httpservice</include>
+                <!--
+                <include>org.mortbay.jasper:apache-el</include>
+                <include>org.mortbay.jasper:apache-jsp</include>
+                <include>org.eclipse.jetty:apache-jsp</include>
+                <include>org.eclipse.tycho:org.eclipse.jdt.core</include>-->
+                <include>org.eclipse.jetty.websocket:websocket-api</include>
+                <include>org.eclipse.jetty.websocket:websocket-common</include>
+                <include>org.eclipse.jetty.websocket:websocket-client</include>
+                <include>org.eclipse.jetty.websocket:websocket-servlet</include>
+                <include>org.eclipse.jetty.websocket:websocket-server</include>
+                <include>org.eclipse.jetty.websocket:javax-websocket-server-impl</include>
+                <include>org.eclipse.jetty.websocket:javax-websocket-client-impl</include>
+                <!--<include>org.eclipse.jetty.osgi:jetty-osgi-boot-jsp</include>-->
+                <include>org.eclipse.jetty.osgi:jetty-osgi-boot</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+    <files>
+        <file>
+            <source>${project.basedir}/src/assembly/jdbc/eclipse-che-resources.bundle</source>
+            <outputDirectory>bundles</outputDirectory>
+            <destName>che-datasource.jar</destName>
+        </file>
+
+        <file>
+            <source>${project.basedir}/src/assembly/bundles/ws-fragment.bundle</source>
+            <outputDirectory>bundles</outputDirectory>
+            <destName>ws-fragment.jar</destName>
+        </file>
+    </files>
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/bin</directory>
+            <outputDirectory>bin/</outputDirectory>
+            <includes>
+                <include>jetty-launcher.sh</include>
+            </includes>
+            <fileMode>755</fileMode>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/src/assembly</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>LICENSE-*.txt</include>
+                <include>start.ini</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/etc</directory>
+            <outputDirectory>etc</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/configuration</directory>
+            <outputDirectory>configuration</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+</assembly>
