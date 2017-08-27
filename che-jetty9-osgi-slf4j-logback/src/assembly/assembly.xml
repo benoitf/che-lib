@@ -59,7 +59,10 @@
                 <include>org.eclipse.jetty:jetty-io</include>
                 <include>org.eclipse.jetty:jetty-security</include>
                 <include>org.eclipse.jetty:jetty-server</include>
+                <!--
                 <include>javax.websocket:javax.websocket-api</include>
+                -->
+                <include>org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-websocket-api</include>
                 <include>javax.ws.rs:javax.ws.rs-api</include>
 
 
@@ -88,7 +91,7 @@
                 <include>org.eclipse.jetty.websocket:websocket-client</include>
                 <include>org.eclipse.jetty.websocket:websocket-servlet</include>
                 <include>org.eclipse.jetty.websocket:websocket-server</include>
-                <include>org.eclipse.jetty.websocket:javax-websocket-server-impl</include>
+                <include>com.florentbenoit:javax-websocket-server-impl</include>
                 <include>org.eclipse.jetty.websocket:javax-websocket-client-impl</include>
                 <!--<include>org.eclipse.jetty.osgi:jetty-osgi-boot-jsp</include>-->
                 <include>org.eclipse.jetty.osgi:jetty-osgi-boot</include>
